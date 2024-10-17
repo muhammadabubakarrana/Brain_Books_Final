@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { View, Image, StyleSheet, TouchableOpacity, ActivityIndicator, TextInput, Animated, Platform } from 'react-native'
 import { Icon } from '@rneui/base';
-import { colors, appStyles, sizes, fontSizes, responsiveHeight,responsiveWidth,responsiveFontSize } from '../../services';
+import { height, totalSize, width } from 'react-native-dimension';
+import { colors, appStyles, sizes, fontSize, responsiveHeight } from '../../services';
 import * as Icons from '../icons';
 import Wrapper from '../wrapper';
 import Text from '../text';
@@ -189,22 +190,20 @@ const Underlined = ({
     onChangeText, secureTextEntry, value, containerStyle, inputContainerStyle,
     inputStyle, titleStatic, autoCapitalize, children, inputBorderStyle }) => {
 
-
     const [titleMarginBottom] = useState(new Animated.Value(0))
-    //const [titleSize] = useState(new Animated.Value(fontSizes.regular))
-    const defaultTitleBottomMargin=responsiveHeight(4.5)
-    const FocusedTitleMarginBottom = defaultTitleBottomMargin
+    //const [titleSize] = useState(new Animated.Value(fontSize.regular))
+    const FocusedTitleMarginBottom = Platform.OS === 'ios' ? height(5) : height(5)
     //const [titleMarginBottom, setTitleMarginBottom] = useState(0)
-    //const [titleSize, setTitleSize] = useState(fontSizes.input)
+    //const [titleSize, setTitleSize] = useState(fontSize.input)
     const moveTitleUp = () => {
         Animated.timing(titleMarginBottom, {
-            toValue:defaultTitleBottomMargin,
+            toValue: height(5),
             duration: 250,
             speed: 50,
             useNativeDriver: false
         }).start();
         // Animated.spring(titleSize, {
-        //     toValue: fontSizes.small,
+        //     toValue: fontSize.small,
         //     duration: 250,
         //    // useNativeDriver: true
         // }).start();
@@ -217,7 +216,7 @@ const Underlined = ({
             useNativeDriver: false
         }).start();
         // Animated.spring(titleSize, {
-        //     toValue: fontSizes.regular,
+        //     toValue: fontSize.regular,
         //     duration: 250,
         //   //  useNativeDriver: true
         // }).start();
@@ -232,10 +231,9 @@ const Underlined = ({
     const styles = StyleSheet.create({
         iconContainer: {
             alignItems: 'flex-end',
-            paddingTop: title ? Platform.OS === 'ios' ? responsiveHeight(1.5) : responsiveHeight(2.5) : null,
+            paddingTop: title ? Platform.OS === 'ios' ? height(1.5) : height(2.5) : null,
         }
     })
-    const defaultTintColor=colors.appTextColor1
     return (
         <TouchableOpacity disabled={!onPress} activeOpacity={1} onPress={onPress}>
             <Wrapper marginHorizontalBase style={[containerStyle]}>
@@ -251,7 +249,7 @@ const Underlined = ({
                 <Wrapper style={[appStyles.inputContainerUnderLined, {
                     //borderRadius: sizes.b,
                     borderBottomWidth: 1,
-                    borderBottomColor: defaultTintColor,
+                    borderBottomColor: colors.appTextColor4,
                     marginHorizontal: 0
                 }, inputBorderStyle]}>
                     {
@@ -270,13 +268,12 @@ const Underlined = ({
                                     :
                                     null
                     }
-                    <Wrapper style={[{ flex: 7, justifyContent: 'center' }, inputContainerStyle]}>
+                    <View style={[{ flex: 7, justifyContent: 'center' }, inputContainerStyle]}>
                         <Wrapper isAbsolute style={{ top: 0, bottom: 0, ...appStyles.center, backgroundColor: 'transparent', }}>
                             <Wrapper style={{ marginBottom: value ? FocusedTitleMarginBottom : titleMarginBottom }}>
                                 <Text isInputTitle style={[titleStyle, {}]}>{title}</Text>
                             </Wrapper>
                         </Wrapper>
-                        <Wrapper style={{}}>
                         {
                             children ? children :
                                 onPress ?
@@ -284,7 +281,7 @@ const Underlined = ({
                                         {
                                             value ?
                                                 <Wrapper>
-                                                    <Spacer height={title ? Platform.OS === 'ios' ? responsiveHeight(1.25) : responsiveHeight(1.25) : 0} />
+                                                    <Spacer height={title ? Platform.OS === 'ios' ? height(1.25) : height(1.25) : 0} />
                                                     <Text isMedium numberOfLines={1}>{value}</Text>
                                                 </Wrapper>
                                                 :
@@ -314,11 +311,10 @@ const Underlined = ({
                                         multiline={multiline}
                                         placeholderTextColor={placeholderTextColor ? placeholderTextColor : colors.appTextColor4}
                                         secureTextEntry={secureTextEntry}
-                                        style={[appStyles.inputField, { color:defaultTintColor,width: null, height: sizes.inputHeight, paddingTop: title ? Platform.OS === 'ios' ? responsiveHeight(1.5) : responsiveHeight(2.5) : null, paddingHorizontal: 0 }, inputStyle]}
+                                        style={[appStyles.inputField, { width: null, height: sizes.inputHeight, paddingTop: title ? Platform.OS === 'ios' ? height(1.5) : height(2.5) : null, paddingHorizontal: 0 }, inputStyle]}
                                     />
                         }
-                        </Wrapper>
-                    </Wrapper>
+                    </View>
 
                     {
                         right ?
@@ -343,7 +339,7 @@ const Underlined = ({
 
                                 tintColor={colors.error}
                                 iconSize={sizes.icons.tiny}
-                                textStyle={[{ fontSize: fontSizes.small }]}
+                                textStyle={[{ fontSize: fontSize.small }]}
                             />
                         </Wrapper>
                         :

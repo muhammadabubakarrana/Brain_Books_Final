@@ -1,79 +1,180 @@
-import React, { Component, useState } from 'react';
-import { View, } from 'react-native';
-import { Logos, Toasts, Icons, Text, TextInputs, Buttons, ScrollViews, Wrapper, Spacer, Headers, CheckBoxes } from '../../../components';
-import { appStyles, colors, responsiveFontSize, responsiveHeight, routes, appSvgs, responsiveWidth, sizes } from '../../../services';
-import { useHooks } from './hooks';
-export default function Index(props) {
-    const { navigate } = props.navigation
+import React, {useState, useEffect} from 'react';
+import {
+  AppOpenAd,
+  InterstitialAd,
+  RewardedAd,
+  BannerAd,
+  TestIds,
+  BannerAdSize,
+  AdEventType,
+} from 'react-native-google-mobile-ads';
+import {View, StyleSheet, ActivityIndicator} from 'react-native'; // Import ActivityIndicator
 
-    const {accepted, setAccepted} = useHooks()
-    return (
-        <Wrapper isMain style={[{}]}>
-            <ScrollViews.KeyboardAvoiding>
-                <Headers.Auth />
-                <Wrapper>
-                    <Spacer isDoubleBase />
-                    <Text isTinyTitle alignTextCenter style={{ fontSize: responsiveFontSize(24) }}>Let's Get Started</Text>
-                    <Spacer isMedium />
-                    <TextInputs.Underlined
-                        title={'Email'}
-                        value={'johndoe@gmail.com'}
-                    />
-                    <Spacer isMedium />
-                    <TextInputs.Underlined
-                        title={'Password'}
-                        value={'12345656676'}
-                        iconNameRight="eye"
-                        iconTypeRight={'feather'}
-                        secureTextEntry
-                    />
-                    <Spacer isMedium />
-                    <TextInputs.Underlined
-                        title={'Confirm Password'}
-                        value={'12345656676'}
-                        iconNameRight="eye"
-                        iconTypeRight={'feather'}
-                        secureTextEntry
-                    />
-                    <Spacer isMedium />
-                    <Wrapper marginHorizontalBase flexDirectionRow alignItemsCenter>
-                        <Icons.Button
-                            buttonSize={responsiveWidth(7)}
-                            buttonColor={accepted ? colors.appColor2 : colors.appBgColor1}
-                            iconColor={colors.appTextColor6}
-                            onPress={() => setAccepted(pre => !pre)}
-                            iconSize={responsiveWidth(4)}
-                            iconName={'check'}
-                            buttonStyle={{ borderWidth: 1, borderColor: accepted ? colors.appBgColor1 : colors.appColor1 }}
-                        />
-                        <Spacer isSmall horizontal />
-                        <Wrapper flex={1}>
-                            <Text isRegular style={{ lineHeight: responsiveFontSize(25) }}>
-                                I accept the
-                                {' '}
-                                <Text
-                                    onPress={() => navigate(routes.common,{screen:routes.termsOfService})}
-                                    isBoldFont>Terms of Service</Text>
-                                {' '}
-                                and
-                                {'\n'}
-                                <Text
-                                    onPress={() => navigate(routes.common,{screen:routes.privacyPolicy})}
-                                    isBoldFont>Privacy Policy</Text>
-                                .
-                            </Text>
-                        </Wrapper>
-                    </Wrapper>
-                    <Spacer height={responsiveHeight(10)} />
-                    <Buttons.Colored
-                        text="Register"
-                        onPress={() => navigate(routes.app)}
-                    />
-                    <Spacer isBasic />
-                </Wrapper>
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-YOUR_AD_UNIT_ID'; // Replace with your Ad Unit ID
 
-            </ScrollViews.KeyboardAvoiding>
-        </Wrapper>
-    );
+export default function Index() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  return (
+    <View style={styles.container}>
+      {isLoading && <ActivityIndicator size="large" />}
+
+      <BannerAd
+        unitId={TestIds.BANNER}
+        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+        onAdLoaded={() => {
+          setIsLoading(false);
+        }}
+        onAdFailedToLoad={error => {
+          __DEV__ && console.log('Ad failed to load:', error);
+          setIsLoading(false);
+        }}
+      />
+    </View>
+  );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  banner: {
+    flex: 0.1, // Adjust height as needed
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+// import React, {Component, useEffect, useState} from 'react';
+// import {
+//   Dimensions,
+//   Image,
+//   Linking,
+//   Platform,
+//   TouchableOpacity,
+//   View,
+// } from 'react-native';
+// import {totalSize} from 'react-native-dimension';
+// import {
+//   Logos,
+//   Toasts,
+//   Icons,
+//   Text,
+//   TextInputs,
+//   Buttons,
+//   ScrollViews,
+//   Wrapper,
+//   Spacer,
+//   Headers,
+//   CheckBoxes,
+//   Loaders,
+// } from '../../../components';
+// import {
+//   appStyles,
+//   colors,
+//   responsiveFontSize,
+//   responsiveHeight,
+//   routes,
+//   appSvgs,
+//   responsiveWidth,
+//   sizes,
+// } from '../../../services';
+// import {useHooks} from './hooks';
+// import {firebase} from '@react-native-firebase/storage';
+// import Pdf from 'react-native-pdf';
+// //import {firebase} from '@react-native-firebase/storage';
+
+// export default function Index(props) {
+//   const {navigate} = props.navigation;
+//   const wifiSettingsURL =
+//     Platform.OS === 'ios' ? 'app-settings:' : 'wifi://settings'; // Adjust for other platforms if needed
+//   const openWifiSettings = async () => {
+//     try {
+//       const supported = await Linking.canOpenURL(wifiSettingsURL);
+//       if (supported) {
+//         await Linking.openURL(wifiSettingsURL);
+//       } else {
+//         console.log(supported);
+//       }
+//     } catch (err) {
+//       console.error('Error opening Wi-Fi settings:', err);
+//     }
+//   };
+
+//   const {loading, setLoading} = useHooks();
+//   const [cPage, setcPage] = useState(1);
+//   const [numOfPages, setnumOfPages] = useState(1);
+
+//   const [pdfUri, setPdfUri] = useState();
+//   const folderName = 'pdf';
+//   const fileName = 'Maths.pdf';
+//   useEffect(() => {
+//     const fetchPdf = async () => {
+//       setLoading(true);
+//       const storage = firebase.storage();
+//       const storageRef = storage.ref(`${folderName}/${fileName}`);
+//       const url = await storageRef.getDownloadURL();
+//       setPdfUri(url);
+//       setLoading(false);
+//       //  console.log(pdfUri);
+//     };
+
+//     fetchPdf();
+//   }, []);
+//   return (
+//     <Wrapper isMain style={[{}]}>
+//       <Wrapper flexDirectionRow alignItemsCenter>
+//         <Text isXLTitle>{cPage}</Text>
+//       </Wrapper>
+//       {/* <TouchableOpacity
+//         onPress={fetchPdf}
+//         style={{borderColor: 'black', borderWidth: 1}}>
+//         <Text isXLTitle>Open wifi</Text>
+//       </TouchableOpacity> */}
+//       {/* {loading ? (
+//         <Loaders.Primary />
+//       ) : (
+//         pdfUri && (
+//           <Image
+//             source={{
+//               uri: pdfUri,
+//             }}
+//             width={400}
+//             height={500}
+//             resizeMode="contain"
+//           />
+//         )
+//       )} */}
+
+//       <Pdf
+//         trustAllCerts={false}
+//         horizontal
+//         source={{
+//           uri: pdfUri,
+//           method: 'GET',
+//         }}
+//         onLoadComplete={(numberOfPages, filePath) => {
+//           console.log(`Number of pages: ${numberOfPages}`);
+//           setnumOfPages(numberOfPages);
+//         }}
+//         onPageChanged={(page, numberOfPages) => {
+//           console.log(`Current page: ${page}`);
+//           setcPage(page);
+//         }}
+//         onError={error => {
+//           console.log(error);
+//         }}
+//         onPressLink={uri => {
+//           console.log(`Link pressed: ${uri}`);
+//         }}
+//         style={{
+//           flex: 1,
+//           width: Dimensions.get('window').width,
+//           height: Dimensions.get('window').height,
+//         }}
+//       />
+//     </Wrapper>
+//   );
+// }

@@ -1,9 +1,10 @@
 import React from 'react'
+import { totalSize } from 'react-native-dimension'
 // import { Wrapper, Icons, Text } from '..'
 import  Wrapper from '../wrapper'
 import * as Icons  from '../icons'
 import Text  from '../text'
-import { colors, handleAnimation, HelpingMethods, sizes ,responsiveHeight,responsiveWidth,responsiveFontSize} from '../../services'
+import { colors, handleAnimation, HelpingMethods, sizes } from '../../services'
 
 
 export const Primary = ({ value, onPress,tintColor }) => {
@@ -14,9 +15,9 @@ export const Primary = ({ value, onPress,tintColor }) => {
                 iconName={"circle"}
                 iconType="font-awesome"
                 activeOpacity={1}
-                iconSize={responsiveFontSize(2.5)}
+                iconSize={totalSize(2.5)}
                 buttonStyle={{
-                    width: responsiveFontSize(5),
+                    width: totalSize(5),
                     alignItems: value ? 'flex-end' : 'flex-start',
                     height: null,
                     borderRadius: 100,
@@ -43,9 +44,9 @@ export const Primary = ({ value, onPress,tintColor }) => {
 //                 iconName={"circle"}
 //                 iconType="font-awesome"
 //                 activeOpacity={1}
-//                 iconSize={responsiveFontSize(2.5)}
+//                 iconSize={totalSize(2.5)}
 //                 buttonStyle={{
-//                     width: responsiveFontSize(5),
+//                     width: totalSize(5),
 //                     alignItems: value ? 'flex-end' : 'flex-start',
 //                     height: null,
 //                     borderRadius: 100,
@@ -73,8 +74,8 @@ export const Secondary = ({ value, onPress }) => {
                 iconName={"circle"}
                 iconType="font-awesome"
                 activeOpacity={1}
-                iconSize={responsiveFontSize(2.5)}
-                buttonStyle={{ width: responsiveFontSize(7), alignItems: !value ? 'flex-end' : 'flex-start', height: null, borderRadius: 100, borderWidth: 0, borderColor: value ? colors.appColor1 : colors.appBgColor3, paddingHorizontal: 1.75, paddingVertical: 0.1, }}
+                iconSize={totalSize(2.5)}
+                buttonStyle={{ width: totalSize(7), alignItems: !value ? 'flex-end' : 'flex-start', height: null, borderRadius: 100, borderWidth: 0, borderColor: value ? colors.appColor1 : colors.appBgColor3, paddingHorizontal: 1.75, paddingVertical: 0.1, }}
                 iconColor={value ? colors.appColor2 : colors.error}
                 buttonRadius={100}
                 onPress={onPress ? () => {

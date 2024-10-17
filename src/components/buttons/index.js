@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { Icon } from '@rneui/base';
-import { colors, appStyles, fontSizes, sizes ,responsiveHeight,responsiveWidth,responsiveFontSize} from '../../services';
+import { height, totalSize, width } from 'react-native-dimension';
+import { colors, appStyles, fontSize, sizes } from '../../services';
 import * as Icons from '../icons';
 import Wrapper from '../wrapper';
 import Text from '../text';
@@ -20,18 +21,18 @@ export const Colored = ({
                         customIcon ?
                             <Icons.Custom
                                 icon={customIcon}
-                                size={iconSize ? iconSize : responsiveFontSize(3)}
+                                size={iconSize ? iconSize : totalSize(3)}
                                 color={tintColor && tintColor}
-                                containerStyle={[{ marginRight: responsiveWidth(2.5) }, iconStyle]}
+                                containerStyle={[{ marginRight: width(2.5) }, iconStyle]}
                             />
                             :
                             iconName ?
                                 <Icon
                                     name={iconName ? iconName : "email-outline"}
                                     type={iconType ? iconType : "material-community"}
-                                    size={iconSize ? iconSize : responsiveFontSize(3)}
+                                    size={iconSize ? iconSize : totalSize(3)}
                                     color={tintColor ? tintColor : colors.appTextColor6}
-                                    iconStyle={[{ marginRight: responsiveWidth(2.5) }, iconStyle]}
+                                    iconStyle={[{ marginRight: width(2.5) }, iconStyle]}
                                 />
                                 :
                                 null
@@ -53,13 +54,13 @@ export const Colored = ({
 
 export const ColoredSmall = ({ text, onPress, buttonStyle, customIcon, direction, textStyle, iconName, iconType, iconSize, iconColor, iconStyle }) => {
     return (
-        <TouchableOpacity onPress={onPress} style={[{ borderRadius: 15, paddingHorizontal: responsiveWidth(5), paddingVertical: responsiveHeight(1), backgroundColor: colors.appColor1 }, buttonStyle]}>
+        <TouchableOpacity onPress={onPress} style={[{ borderRadius: 15, paddingHorizontal: width(5), paddingVertical: height(1), backgroundColor: colors.appColor1 }, buttonStyle]}>
             <Wrapper style={{ flexDirection: direction ? direction : 'row', alignItems: 'center' }}>
                 {
                     customIcon ?
                         <Icons.Custom
                             icon={customIcon}
-                            size={iconSize ? iconSize : responsiveFontSize(2)}
+                            size={iconSize ? iconSize : totalSize(2)}
                             color={iconColor ? iconColor : colors.appTextColor6}
                         />
                         :
@@ -67,7 +68,7 @@ export const ColoredSmall = ({ text, onPress, buttonStyle, customIcon, direction
                             <Icon
                                 name={iconName ? iconName : "email-outline"}
                                 type={iconType ? iconType : "material-community"}
-                                size={iconSize ? iconSize : responsiveFontSize(2)}
+                                size={iconSize ? iconSize : totalSize(2)}
                                 color={iconColor ? iconColor : colors.appTextColor6}
                                 iconStyle={[{}, iconStyle]}
                             />
@@ -88,18 +89,18 @@ export const Bordered = ({ text, onPress, buttonStyle, textStyle, iconName, cust
                     customIcon ?
                         <Icons.Custom
                             icon={customIcon}
-                            size={iconSize ? iconSize : responsiveFontSize(3)}
+                            size={iconSize ? iconSize : totalSize(3)}
                             color={iconColor ? iconColor : null}
-                            containerStyle={[{ marginRight: responsiveWidth(2.5) }, iconStyle]}
+                            containerStyle={[{ marginRight: width(2.5) }, iconStyle]}
                         />
                         :
                         iconName ?
                             <Icon
                                 name={iconName ? iconName : "email-outline"}
                                 type={iconType ? iconType : "material-community"}
-                                size={iconSize ? iconSize : responsiveFontSize(3)}
+                                size={iconSize ? iconSize : totalSize(3)}
                                 color={iconColor ? iconColor : tintColor ? tintColor : colors.appColor1}
-                                iconStyle={[{ marginRight: responsiveWidth(2.5) }, iconStyle]}
+                                iconStyle={[{ marginRight: width(2.5) }, iconStyle]}
 
                             />
                             :
@@ -113,21 +114,21 @@ export const Bordered = ({ text, onPress, buttonStyle, textStyle, iconName, cust
 
 export const BorderedSmall = ({ text, onPress, buttonStyle, rowReverse, textStyle, iconName, iconType, iconSize, iconColor, iconStyle, tintColor }) => {
     return (
-        <TouchableOpacity onPress={onPress} style={[{ borderRadius: 15, paddingHorizontal: responsiveWidth(5), paddingVertical: responsiveHeight(1), borderColor: tintColor ? tintColor : colors.appColor1, borderWidth: 1 }, buttonStyle]}>
+        <TouchableOpacity onPress={onPress} style={[{ borderRadius: 15, paddingHorizontal: width(5), paddingVertical: height(1), borderColor: tintColor ? tintColor : colors.appColor1, borderWidth: 1 }, buttonStyle]}>
             <Wrapper style={{ flexDirection: rowReverse ? 'row-reverse' : 'row', alignItems: 'center' }}>
                 {
                     iconName ?
                         <Icon
                             name={iconName ? iconName : "email-outline"}
                             type={iconType ? iconType : "material-community"}
-                            size={iconSize ? iconSize : responsiveFontSize(2)}
+                            size={iconSize ? iconSize : totalSize(2)}
                             color={tintColor ? tintColor : colors.appColor1}
-                            iconStyle={[{ marginHorizontal: responsiveWidth(2) }, iconStyle]}
+                            iconStyle={[{ marginHorizontal: width(2) }, iconStyle]}
                         />
                         :
                         null
                 }
-                <Text isButtonRegular style={[{ color: tintColor ? tintColor : colors.appColor1, fontSize: fontSizes.regular }, textStyle]}>{text}</Text>
+                <Text isButtonRegular style={[{ color: tintColor ? tintColor : colors.appColor1, fontSize: fontSize.regular }, textStyle]}>{text}</Text>
             </Wrapper>
         </TouchableOpacity>
     );

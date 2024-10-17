@@ -1,4 +1,8 @@
 {
-  "name": "RnTemplate",
-  "displayName": "RnTemplate"
+  "name": "BrainBooks",
+  "displayName": "Brain Books",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-5666688217183011~8184835440",
+    "ios_app_id": "ca-app-pub-xxxxxxxx~xxxxxxxx"
+  }
 }

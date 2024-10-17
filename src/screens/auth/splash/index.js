@@ -1,20 +1,49 @@
-import React, { Component } from 'react';
-import { Wrapper, Text, Logos, Icons } from '../../../components';
-import { appStyles, appSvgs, responsiveHeight, responsiveWidth } from '../../../services';
+import React from 'react';
+import {Wrapper, Text, Spacer, StatusBars} from '../../../components';
+import {appIcons, colors, responsiveWidth} from '../../../services';
+import {Image} from 'react-native';
 
 function Splash() {
   return (
-    <Wrapper isMain isCenter>
-      <Wrapper animation={'slideInLeft'} isAbsolute style={{ left: -responsiveWidth(35), top: responsiveHeight(22.5) }}>
-        <Icons.Svg
-          svg={appSvgs.logo_art_gray}
-          size={responsiveHeight(60)}
+    <Wrapper
+      isMain
+      style={{
+        justifyContent: 'center',
+        backgroundColor: colors.appColor1,
+      }}>
+      <StatusBars.Light />
+      <Wrapper alignItemsCenter animation={'slideInLeft'}>
+        <Image
+          source={appIcons.Brainlogo}
+          resizeMode="contain"
+          height={responsiveWidth(10)}
+          width={responsiveWidth(10)}
         />
+        <Text
+          style={{
+            color: colors.appTextColor6,
+          }}
+          isMediumFont
+          isMedium>
+          BRAIN BOOKS
+        </Text>
       </Wrapper>
-      <Wrapper animation={'fadeIn'}>
-      <Logos.Primary
-        size={responsiveWidth(90)}
-      />
+      <Spacer isDoubleBase />
+      <Wrapper paddingHorizontalBase animation={'slideInRight'}>
+        <Text
+          alignTextCenter
+          style={{color: colors.appTextColor6}}
+          isSmallTitle>
+          All in One{'\n'} Study Solution
+        </Text>
+        <Spacer isSmall />
+        <Text
+          style={{color: colors.appTextColor6}}
+          alignTextCenter
+          isMedium
+          isMediumFont>
+          Only platform for all Board Preparations
+        </Text>
       </Wrapper>
     </Wrapper>
   );

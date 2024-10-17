@@ -1,8 +1,7 @@
-import { useState } from "react"
+import {useState} from 'react';
 
 export function useHooks() {
+  const [loading, setLoading] = useState(false);
 
-    const [accepted, setAccepted] = useState(false)
-
-    return { accepted, setAccepted }
+  return {loading, setLoading};
 }
